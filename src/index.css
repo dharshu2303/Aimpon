@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 95%;
+
+    --surface: 222 47% 7%;
+    --surface-hover: 222 47% 10%;
+
+    --card: 222 47% 7%;
+    --card-foreground: 210 40% 95%;
+
+    --popover: 222 47% 7%;
+    --popover-foreground: 210 40% 95%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 222 47% 4%;
+
+    --secondary: 222 30% 15%;
+    --secondary-foreground: 210 40% 95%;
+
+    --muted: 215 20% 65%;
+    --muted-foreground: 215 20% 45%;
+
+    --accent: 186 100% 50%;
+    --accent-foreground: 222 47% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 30% 15%;
+    --input: 217 30% 15%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+
+    --photon-glow: 0 0 20px rgba(0, 180, 255, 0.4);
+    --photon-strong: 0 0 40px rgba(0, 180, 255, 0.6);
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 210 40% 95%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 47% 10%;
+    --sidebar-accent-foreground: 210 40% 95%;
+    --sidebar-border: 217 30% 15%;
+    --sidebar-ring: 199 89% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, hsl(199 89% 12% / 0.4), transparent),
+                radial-gradient(ellipse 40% 30% at 80% 80%, hsl(186 100% 10% / 0.2), transparent),
+                hsl(222, 47%, 4%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(222, 47%, 4%);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(199, 89%, 48% / 0.4);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08),
+                0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+  }
+
+  .glass-card-strong {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 20px 40px -10px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+  }
+
+  .photon-text {
+    background: linear-gradient(135deg, hsl(199, 89%, 68%), hsl(186, 100%, 60%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .photon-border {
+    position: relative;
+  }
+
+  .photon-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(199, 89%, 48%), hsl(186, 100%, 50%), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .nav-icon-btn {
+    @apply relative flex flex-col items-center justify-center gap-1 p-3 rounded-xl cursor-pointer transition-all duration-300;
+    background: transparent;
+  }
+
+  .nav-icon-btn:hover {
+    background: rgba(0, 180, 255, 0.1);
+    filter: drop-shadow(0 0 8px hsl(199, 89%, 48%));
+    transform: translateY(-5px) scale(1.2);
+  }
+
+  .nav-icon-btn.active {
+    background: rgba(0, 180, 255, 0.15);
+    filter: drop-shadow(0 0 10px hsl(199, 89%, 48%));
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold tracking-tight;
+    background: linear-gradient(135deg, #fff 40%, hsl(199, 89%, 68%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.04em;
+  }
+
+  .tagline-chip {
+    @apply text-xs uppercase tracking-[0.2em] font-medium px-3 py-1 rounded-full;
+    color: hsl(199, 89%, 68%);
+    background: rgba(0, 180, 255, 0.1);
+    border: 1px solid rgba(0, 180, 255, 0.2);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer;
+    background: hsl(199, 89%, 48%);
+    color: hsl(222, 47%, 4%);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+  }
+
+  .btn-primary:hover {
+    background: hsl(199, 89%, 58%);
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-ghost {
+    @apply px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer;
+    background: transparent;
+    color: hsl(199, 89%, 68%);
+    border: 1px solid rgba(0, 180, 255, 0.3);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(0, 180, 255, 0.1);
+    border-color: hsl(199, 89%, 48%);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .code-watermark {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    line-height: 1.6;
+    color: rgba(0, 180, 255, 0.05);
+    user-select: none;
+    pointer-events: none;
+    white-space: pre;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  .team-card:hover .code-watermark {
+    color: rgba(0, 180, 255, 0.15);
+  }
+
+  .tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px hsl(199, 89%, 48% / 0.5);
+  }
+
+  .box-glow {
+    box-shadow: var(--photon-glow);
+  }
+
+  .box-glow-strong {
+    box-shadow: var(--photon-strong);
+  }
+}
